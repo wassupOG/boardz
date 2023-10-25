@@ -13,7 +13,6 @@ export default function Home() {
   if (query.isLoading) {
     return <h1 className="text-center text-3xl">Loading...</h1>
   } else if (query.error) {
-    console.log(query.error)
     return <h1 className="text-center text-3xl text-red-400">Error</h1>
   }
 

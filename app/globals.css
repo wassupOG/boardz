@@ -6,6 +6,8 @@
   :root {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
+    --elevated: 0 0% 95%;
+    --highlighted: 0 13% 90%;
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
@@ -29,6 +31,8 @@
   .dark {
     --background: 20 14.3% 4.1%;
     --foreground: 0 0% 95%;
+    --elevated: 24 9.8% 8%;
+    --highlighted: 24 7% 25%;
     --card: 24 9.8% 10%;
     --card-foreground: 0 0% 95%;
     --popover: 0 0% 9%;
@@ -59,7 +63,18 @@
 }
 
 .main-container {
-  max-width: 100ch;
-  margin: 3rem auto 3rem;
+  max-width: 130ch;
+  margin: 6rem auto 3rem;
   padding: 0 1.5rem 0;
 }
+
+.nav-container {
+  padding: 0 1.5rem 0;
+  border-bottom: 1px solid hsl(var(--foreground));
+}
+
+/* body,
+:root,
+html {
+  height: 200vh;
+} */

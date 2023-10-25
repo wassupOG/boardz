@@ -6,6 +6,7 @@ export type Task = {
   id: number
   title: string
   description: string
+  status: "planned" | "progress" | "done"
 }
 
 export async function createTask({ title, description }: Task) {
@@ -13,6 +14,6 @@ export async function createTask({ title, description }: Task) {
 }
 
 export async function getTasks() {
-  const tasks = await prisma.task.findMany()
-  return tasks
+  const data = await prisma.task.findMany()
+  return data as Task[]
 }

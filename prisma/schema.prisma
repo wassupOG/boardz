@@ -8,8 +8,15 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
+enum TaskStatus {
+  planned
+  progress
+  done
+}
+
 model Task {
   id Int @id @default(autoincrement())
   title String
   description String
+  status TaskStatus @default(planned)
 }

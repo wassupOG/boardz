@@ -2,7 +2,6 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme/theme-provider"
-import { ThemeToggle } from "@/components/theme/theme-toggle"
 import { TanstackProvider } from "./tanstack-provider"
 import { Navbar } from "@/components/custom/navbar"
 

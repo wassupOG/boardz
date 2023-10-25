@@ -3,7 +3,7 @@
 import prisma from "@/db"
 
 export type Task = {
-  id?: number
+  id: number
   title: string
   description: string
 }

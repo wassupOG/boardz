@@ -23,7 +23,7 @@ export default function Home() {
       <Card className="p-5">
         <h1 className="text-center text-3xl">Planned 🕐</h1>
         {tasks.map((task) => (
-          <div>
+          <div key={task.id}>
             {task.title} | {task.description}
           </div>
         ))}

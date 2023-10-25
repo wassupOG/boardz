@@ -11,7 +11,15 @@ export function DesktopBoards({ tasks }: BoardsProps) {
       <TaskBoard boardType="🕜 Planned">
         {tasks.map(({ description, title, id, status }) => {
           if (status === "planned") {
-            return <TaskCard key={id} title={title} description={description} />
+            return (
+              <TaskCard
+                key={id}
+                id={id}
+                title={title}
+                description={description}
+                status={status}
+              />
+            )
           }
         })}
         <AddTask />
@@ -19,14 +27,30 @@ export function DesktopBoards({ tasks }: BoardsProps) {
       <TaskBoard boardType="⏳ In Progress">
         {tasks.map(({ description, title, id, status }) => {
           if (status === "progress") {
-            return <TaskCard key={id} title={title} description={description} />
+            return (
+              <TaskCard
+                key={id}
+                id={id}
+                title={title}
+                description={description}
+                status={status}
+              />
+            )
           }
         })}
       </TaskBoard>
       <TaskBoard boardType="✅ Done">
         {tasks.map(({ description, title, id, status }) => {
           if (status === "done") {
-            return <TaskCard key={id} title={title} description={description} />
+            return (
+              <TaskCard
+                key={id}
+                id={id}
+                title={title}
+                description={description}
+                status={status}
+              />
+            )
           }
         })}
       </TaskBoard>

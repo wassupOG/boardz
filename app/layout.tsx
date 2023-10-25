@@ -4,6 +4,7 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme/theme-provider"
 import { TanstackProvider } from "./tanstack-provider"
 import { Navbar } from "@/components/custom/navbar"
+import { TasksContextProvider } from "./context"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -18,20 +19,22 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
-        <TanstackProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <Navbar />
-            <main className="main-container">{children}</main>
-          </ThemeProvider>
-        </TanstackProvider>
-      </body>
-    </html>
+    <TasksContextProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body className={inter.className}>
+          <TanstackProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <Navbar />
+              <main className="main-container">{children}</main>
+            </ThemeProvider>
+          </TanstackProvider>
+        </body>
+      </html>
+    </TasksContextProvider>
   )
 }

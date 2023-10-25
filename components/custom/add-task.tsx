@@ -1,6 +1,9 @@
+import { createTask } from "@/app/db-actions"
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 import { ChangeEvent, FormEvent, useState } from "react"
+import { useTasksContext } from "@/app/context"
+import { Task } from "@/app/types"
 
 type FormType = {
   title: string
@@ -12,6 +15,7 @@ export function AddTask() {
     title: "",
     description: "",
   })
+  const { setTasks } = useTasksContext()
 
   function handleForm(e: ChangeEvent<HTMLInputElement>, type: string) {
     setForm({ ...form, [type]: e.target.value })
@@ -19,7 +23,31 @@ export function AddTask() {
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    console.log(form)
+    const created: Task = {
+      id: crypto.randomUUID(),
+      title: form.title,
+      description: form.description,
+      status: "planned",
+      date: new Date(),
+    }
+    setTasks((prev) => [
+      ...prev,
+      {
+        id: created.id,
+        title: created.title,
+        description: created.description,
+        status: created.status,
+        date: created.date,
+      },
+    ])
+    createTask({
+      id: created.id,
+      title: created.title,
+      description: created.description,
+      status: created.status,
+      date: created.date,
+    })
+    setForm({ title: "", description: "" })
   }
 
   return (
@@ -36,7 +64,7 @@ export function AddTask() {
           name="description"
           value={form.description}
           required
-          placeholder="Tasl description..."
+          placeholder="Task description..."
           onChange={(e) => handleForm(e, e.target.name)}
         />
         <Button variant={"outline"}>Add</Button>

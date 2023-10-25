@@ -5,7 +5,7 @@ import { useState } from "react"
 import { Button } from "../ui/button"
 import { TaskBoard } from "./task-board"
 import { TaskCard } from "./task-card"
-import { Task } from "@/app/db-actions"
+import { Task } from "@/app/types"
 
 type BoardState = {
   DBvalue: TaskType
@@ -60,7 +60,15 @@ export function MobileBoards({ tasks }: BoardsProps) {
       <TaskBoard boardType={board.displayedValue}>
         {tasks.map(({ description, title, id, status }) => {
           if (status === board.DBvalue) {
-            return <TaskCard key={id} title={title} description={description} />
+            return (
+              <TaskCard
+                key={id}
+                id={id}
+                title={title}
+                description={description}
+                status={status}
+              />
+            )
           }
         })}
       </TaskBoard>

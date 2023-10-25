@@ -3,18 +3,21 @@
 import { DesktopBoards } from "@/components/custom/desktop-boards"
 import { MobileBoards } from "@/components/custom/mobile-boards"
 import { useEffect, useState } from "react"
-import { Task, getTasks } from "./db-actions"
+import { getTasks } from "./db-actions"
+import { useTasksContext } from "./context"
 
 export type TaskType = "planned" | "progress" | "done"
 
 export default function Home() {
-  const [tasks, setTasks] = useState<Task[] | null>(null)
+  const { tasks, setTasks } = useTasksContext()
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     getTasks().then((data) => setTasks(data))
+    setLoading(false)
   }, [])
 
-  if (!tasks) {
+  if (loading) {
     return "Loading"
   } else {
     return (

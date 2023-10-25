@@ -1,28 +1,26 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
-import { Task, createTask, getTasks } from "./(server)/db-actions"
-import { useEffect, useState } from "react"
+import { getTasks } from "./db-actions"
 import { Card } from "@/components/ui/card"
+import { useQuery } from "@tanstack/react-query"
 
 export default function Home() {
-  const [tasks, setTasks] = useState<Task[]>([])
-  const [loading, setLoading] = useState(true)
+  const query = useQuery({
+    queryKey: ["todos"],
+    queryFn: getTasks,
+  })
 
-  useEffect(() => {
-    getTasks().then((data) => setTasks(data))
-    setLoading(false)
-  }, [])
-
-  if (loading) {
-    return "Loading..."
+  if (query.isLoading) {
+    return <h1 className="text-center text-3xl">Loading...</h1>
+  } else if (query.error) {
+    return <h1 className="text-center text-3xl text-red-400">Error</h1>
   }
 
   return (
     <>
       <Card className="p-5">
         <h1 className="text-center text-3xl">Planned 🕐</h1>
-        {tasks.map((task) => (
+        {query.data!.map((task) => (
           <div key={task.id}>
             {task.title} | {task.description}
           </div>

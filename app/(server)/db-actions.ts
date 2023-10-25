@@ -13,5 +13,6 @@ export async function createTask({ title, description }: Task) {
 }
 
 export async function getTasks() {
-  return await prisma.task.findMany()
+  const tasks = await prisma.task.findMany()
+  return tasks
 }

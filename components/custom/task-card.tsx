@@ -4,23 +4,22 @@ import { deleteTask, changeStatus, editTask } from "@/app/db-actions"
 import { Button } from "../ui/button"
 import { Card, CardHeader, CardDescription, CardFooter } from "../ui/card"
 import { useTasksContext } from "@/app/context"
-import { TaskStatus } from "@prisma/client"
 import { CheckCheck, ChevronLeft, Play, Trash2 } from "lucide-react"
 import { Input } from "../ui/input"
 import { ChangeEvent, FocusEvent, useState } from "react"
 import { TooltipWrapper } from "./tooltip-wrapper"
-import { EditTaskProperty } from "@/app/types"
+import { EditTaskProperty, Task } from "@/app/types"
 
-type TaskCardProps = {
-  id: string
-  title: string
-  description: string
-  status: TaskStatus
-}
-
-export function TaskCard({ title, description, id, status }: TaskCardProps) {
+export function TaskCard({ title, description, id, status, date }: Task) {
   const [editing, setEditing] = useState({ title: false, description: false })
   const { setTasks } = useTasksContext()
+
+  function getDate(date: Date) {
+    const newDate = new Date(date)
+    const month = newDate.toLocaleString("default", { month: "short" })
+    const day = newDate.getDate()
+    return `${month} ${day}`
+  }
 
   function handleChange(
     e: ChangeEvent<HTMLInputElement>,
@@ -144,7 +143,10 @@ export function TaskCard({ title, description, id, status }: TaskCardProps) {
     )
   }
   return (
-    <Card className="text-elevated-foreground bg-elevated">
+    <Card className="text-elevated-foreground relative bg-elevated pt-5">
+      <div className=" absolute right-4 top-4 text-sm text-muted-foreground">
+        {getDate(date)}
+      </div>
       <CardHeader>
         <div className="text-xl">
           {status === "done" ? (
@@ -158,12 +160,12 @@ export function TaskCard({ title, description, id, status }: TaskCardProps) {
             />
           ) : (
             <TooltipWrapper content="Click to edit title">
-              <span
+              <div
                 onClick={() => setEditing({ ...editing, title: true })}
                 className="rounded-md p-1 hover:cursor-text hover:bg-input"
               >
                 {title}
-              </span>
+              </div>
             </TooltipWrapper>
           )}
         </div>
@@ -179,12 +181,12 @@ export function TaskCard({ title, description, id, status }: TaskCardProps) {
             />
           ) : (
             <TooltipWrapper content="Click to edit description">
-              <span
+              <div
                 onClick={() => setEditing({ ...editing, description: true })}
                 className="rounded-md p-1 hover:cursor-text hover:bg-input"
               >
                 {description}
-              </span>
+              </div>
             </TooltipWrapper>
           )}
         </CardDescription>

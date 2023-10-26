@@ -10,7 +10,7 @@ export function DesktopBoards({ tasks }: BoardsProps) {
     <div className="hidden gap-4  md:grid md:grid-cols-2 lg:grid-cols-3">
       <TaskBoard boardType="🕜 Planned">
         <AddTask />
-        {tasks.map(({ description, title, id, status }) => {
+        {tasks.map(({ description, title, id, status, date }) => {
           if (status === "planned") {
             return (
               <TaskCard
@@ -19,13 +19,14 @@ export function DesktopBoards({ tasks }: BoardsProps) {
                 title={title}
                 description={description}
                 status={status}
+                date={date}
               />
             )
           }
         })}
       </TaskBoard>
       <TaskBoard boardType="⏳ In Progress">
-        {tasks.map(({ description, title, id, status }) => {
+        {tasks.map(({ description, title, id, status, date }) => {
           if (status === "progress") {
             return (
               <TaskCard
@@ -34,13 +35,14 @@ export function DesktopBoards({ tasks }: BoardsProps) {
                 title={title}
                 description={description}
                 status={status}
+                date={date}
               />
             )
           }
         })}
       </TaskBoard>
       <TaskBoard boardType="✅ Done">
-        {tasks.map(({ description, title, id, status }) => {
+        {tasks.map(({ description, title, id, status, date }) => {
           if (status === "done") {
             return (
               <TaskCard
@@ -49,6 +51,7 @@ export function DesktopBoards({ tasks }: BoardsProps) {
                 title={title}
                 description={description}
                 status={status}
+                date={date}
               />
             )
           }

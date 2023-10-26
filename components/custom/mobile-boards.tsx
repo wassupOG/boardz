@@ -59,7 +59,8 @@ export function MobileBoards({ tasks }: BoardsProps) {
         ))}
       </div>
       <TaskBoard boardType={board.displayedValue}>
-        {tasks.map(({ description, title, id, status }) => {
+        {board.DBvalue === "planned" && <AddTask />}
+        {tasks.map(({ description, title, id, status, date }) => {
           if (status === board.DBvalue) {
             return (
               <TaskCard
@@ -68,11 +69,9 @@ export function MobileBoards({ tasks }: BoardsProps) {
                 title={title}
                 description={description}
                 status={status}
+                date={date}
               />
             )
-          }
-          if (board.DBvalue === "planned") {
-            return <AddTask key={"add task"} />
           }
         })}
       </TaskBoard>

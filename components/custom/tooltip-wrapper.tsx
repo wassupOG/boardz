@@ -16,7 +16,7 @@ export function TooltipWrapper({ content, children }: TooltipProps) {
       <Tooltip>
         <TooltipTrigger asChild>{children}</TooltipTrigger>
         <TooltipContent>
-          <span className="mb-1 rounded-lg bg-input px-2 py-1 text-sm ">
+          <span className="mb-1 rounded-lg bg-input p-1 text-sm ">
             {content}
           </span>
         </TooltipContent>

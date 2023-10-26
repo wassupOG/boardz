@@ -15,10 +15,10 @@ export default function Home() {
   useEffect(() => {
     getTasks().then((data) => setTasks(data))
     setLoading(false)
-  }, [])
+  }, [setTasks])
 
   if (loading) {
-    return "Loading"
+    return <h1 className="p-5 text-center text-2xl">Loading your boardz...</h1>
   } else {
     return (
       <>

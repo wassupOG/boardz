@@ -9,6 +9,7 @@ export function DesktopBoards({ tasks }: BoardsProps) {
   return (
     <div className="hidden gap-4  md:grid md:grid-cols-2 lg:grid-cols-3">
       <TaskBoard boardType="🕜 Planned">
+        <AddTask />
         {tasks.map(({ description, title, id, status }) => {
           if (status === "planned") {
             return (
@@ -22,7 +23,6 @@ export function DesktopBoards({ tasks }: BoardsProps) {
             )
           }
         })}
-        <AddTask />
       </TaskBoard>
       <TaskBoard boardType="⏳ In Progress">
         {tasks.map(({ description, title, id, status }) => {

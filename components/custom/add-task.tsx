@@ -31,7 +31,6 @@ export function AddTask() {
       date: new Date(),
     }
     setTasks((prev) => [
-      ...prev,
       {
         id: created.id,
         title: created.title,
@@ -39,6 +38,7 @@ export function AddTask() {
         status: created.status,
         date: created.date,
       },
+      ...prev,
     ])
     createTask({
       id: created.id,
@@ -51,24 +51,27 @@ export function AddTask() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-      <Input
-        name="title"
-        value={form.title}
-        required
-        placeholder="Task title..."
-        onChange={(e) => handleForm(e, e.target.name)}
-      />
-      <div className="flex items-center gap-3">
+    <>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-3">
         <Input
-          name="description"
-          value={form.description}
+          name="title"
+          value={form.title}
           required
-          placeholder="Task description..."
+          placeholder="Task title..."
           onChange={(e) => handleForm(e, e.target.name)}
         />
-        <Button variant={"outline"}>Add</Button>
-      </div>
-    </form>
+        <div className="flex items-center gap-3">
+          <Input
+            name="description"
+            value={form.description}
+            required
+            placeholder="Task description..."
+            onChange={(e) => handleForm(e, e.target.name)}
+          />
+          <Button variant={"outline"}>Add</Button>
+        </div>
+      </form>
+      <hr />
+    </>
   )
 }

@@ -1,7 +1,17 @@
 "use server"
 
 import prisma from "@/db"
-import { Task } from "./types"
+import { EditTaskProperty, Task } from "./types"
+import { TaskType } from "./page"
+
+export async function getTasks() {
+  const data = await prisma.task.findMany({
+    orderBy: {
+      date: "desc",
+    },
+  })
+  return data as Task[]
+}
 
 export async function createTask({
   id,
@@ -25,51 +35,28 @@ export async function deleteTask(id: string) {
   await prisma.task.delete({ where: { id: id } })
 }
 
-export async function pushToProgress(id: string) {
+export async function changeStatus(id: string, newStatus: TaskType) {
   await prisma.task.update({
     where: {
       id: id,
     },
     data: {
-      status: "progress",
+      status: newStatus,
     },
   })
 }
 
-export async function finishTask(id: string) {
+export async function editTask(
+  id: string,
+  newValue: string,
+  property: EditTaskProperty,
+) {
   await prisma.task.update({
     where: {
       id: id,
     },
     data: {
-      status: "done",
+      [property]: newValue,
     },
   })
-}
-
-export async function backToProgress(id: string) {
-  await prisma.task.update({
-    where: {
-      id: id,
-    },
-    data: {
-      status: "progress",
-    },
-  })
-}
-
-export async function backToPlanned(id: string) {
-  await prisma.task.update({
-    where: {
-      id: id,
-    },
-    data: {
-      status: "planned",
-    },
-  })
-}
-
-export async function getTasks() {
-  const data = await prisma.task.findMany()
-  return data as Task[]
 }

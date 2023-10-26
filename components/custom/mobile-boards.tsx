@@ -6,6 +6,7 @@ import { Button } from "../ui/button"
 import { TaskBoard } from "./task-board"
 import { TaskCard } from "./task-card"
 import { Task } from "@/app/types"
+import { AddTask } from "./add-task"
 
 type BoardState = {
   DBvalue: TaskType
@@ -69,6 +70,9 @@ export function MobileBoards({ tasks }: BoardsProps) {
                 status={status}
               />
             )
+          }
+          if (board.DBvalue === "planned") {
+            return <AddTask key={"add task"} />
           }
         })}
       </TaskBoard>
